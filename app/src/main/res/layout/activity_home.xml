@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/vomit"
-        android:id="@+id/imageView"
+        android:id="@+id/ivHomeActivityVommit"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lock"
-        style="@style/orangeButton"
-        android:id="@+id/button"
+        style="@style/orangeButtonRounded"
+        android:id="@+id/btnHomeActivityLock"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -35,9 +35,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/slogan"
         android:layout_marginBottom="20dp"
-        android:id="@+id/textView"
+        android:id="@+id/tvHomeActivitySlogan"
         style="@style/orangeText"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/btnHomeActivityLock"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

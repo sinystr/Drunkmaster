@@ -6,7 +6,11 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="application_title">Drunkmaster</string>
-    <string name="lock" >LOCK THE DEVICE</string>
-    <string name="slogan" >Because one beer aint enough</string>
+    <string name="lock">LOCK THE DEVICE</string>
+    <string name="slogan">Because one beer aint enough</string>
+    <string name="title_activity_apps">Applications</string>
+    <string name="Apps_label">Choose Applications to be blocked</string>
+    <string name="next_step">Next step</string>
+    <string name="image" />
 
 </resources>
