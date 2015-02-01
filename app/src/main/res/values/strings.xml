@@ -11,6 +11,7 @@
     <string name="title_activity_apps">Applications</string>
     <string name="Apps_label">Choose Applications to be blocked</string>
     <string name="next_step">Next step</string>
-    <string name="image" />
+    <string name="image"></string>
+    <string name="title_activity_time">TimeActivity</string>
 
 </resources>

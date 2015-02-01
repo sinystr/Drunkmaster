@@ -1,22 +1,31 @@
 package bg.stoykov.drunk.drunkmaster;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class AppsActivity extends DrunkenMasterActionBarActivity {
+public class AppsActivity extends DrunkenMasterActionBarActivity implements View.OnClickListener {
 
     private ListView mListView;
     private ProgressDialog dialog;
+    private AppAdapter adapter;
+    private Button nextStep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,36 @@ public class AppsActivity extends DrunkenMasterActionBarActivity {
         // and puts them in the list view
         new LoadDeviceApplications().execute();
 
+        nextStep = (Button)findViewById(R.id.btnAppsActivity);
+        nextStep.setOnClickListener(this);
+
+    }
+
+    private void fillList(ArrayList<AppInfo> appInfos){
+        adapter = new AppAdapter(AppsActivity.this, R.layout.app_item ,appInfos);
+        mListView = (ListView) findViewById(R.id.lvApps);
+        mListView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        ArrayList<String> apps = adapter.getSelected();
+        if(apps.size() == 0) {
+            Toast selectApps = Toast.makeText(AppsActivity.this, "Please select atleast 1 app!!", Toast.LENGTH_SHORT);
+            selectApps.show();
+        }else{
+            SharedPreferences pref = getSharedPreferences("Lock_info", 0);
+            SharedPreferences.Editor edit = pref.edit();
+            Set<String> set = new HashSet<>();
+            set.addAll(apps);
+            edit.putStringSet("apps", set);
+            edit.apply();
+
+            Intent in = new Intent(this, TimeActivity.class);
+            startActivity(in);
+
+
+        }
     }
 
     private class LoadDeviceApplications extends AsyncTask<Void, Void, ArrayList<AppInfo>>{
@@ -66,10 +105,7 @@ public class AppsActivity extends DrunkenMasterActionBarActivity {
         @Override
         protected void onPostExecute(ArrayList<AppInfo> appInfos) {
             super.onPostExecute(appInfos);
-
-            final AppAdapter adapter = new AppAdapter(AppsActivity.this, R.layout.app_item ,appInfos);
-            mListView = (ListView) findViewById(R.id.lvApps);
-            mListView.setAdapter(adapter);
+            fillList(appInfos);
 
             dialog.hide();
             Toast successMessage = Toast.makeText(AppsActivity.this, "All Applications loaded!", Toast.LENGTH_SHORT);

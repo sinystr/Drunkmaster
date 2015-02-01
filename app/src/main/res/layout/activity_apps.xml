@@ -38,6 +38,6 @@
         android:layout_weight="0.72"
         style="@style/orangeButton"
         android:text="@string/next_step"
-        android:id="@+id/button" />
+        android:id="@+id/btnAppsActivity" />
 
 </LinearLayout>

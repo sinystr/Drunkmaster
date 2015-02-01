@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -36,31 +35,61 @@ public class AppAdapter extends ArrayAdapter<AppInfo> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
+        View rowView = convertView;
 
-        if (convertView == null) {
+        if (rowView == null) {
+            // Inflating the xml view
             LayoutInflater vi = (LayoutInflater)context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            convertView = vi.inflate(R.layout.app_item, null);
+            rowView = vi.inflate(R.layout.app_item, null);
 
-            holder = new ViewHolder();
-            holder.mProfileImageView = (ImageView) convertView.findViewById(R.id.ivAppItem);
-            holder.mAppName = (TextView) convertView.findViewById(R.id.tvAppItem);
-            holder.mCheckboxBlock = (CheckBox) convertView.findViewById(R.id.cbAppItem);
-            convertView.setTag(holder);
+            // Creating a new ViewHolder and filling it
+            ViewHolder viewHolder = new ViewHolder();
+            viewHolder.mProfileImageView = (ImageView) rowView.findViewById(R.id.ivAppItem);
+            viewHolder.mAppName = (TextView) rowView.findViewById(R.id.tvAppItem);
+
+            CheckBox checkBox;
+            checkBox = (CheckBox) rowView.findViewById(R.id.cbAppItem);
+            viewHolder.mCheckboxBlock = checkBox;
+
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CheckBox cb = (CheckBox) v ;
+                    AppInfo planet = (AppInfo) cb.getTag();
+                    planet.setSelected( cb.isChecked() );
+                }
+            });
+
+            rowView.setTag(viewHolder);
 
         }
-        else {
-            holder = (ViewHolder) convertView.getTag();
-        }
 
+        ViewHolder holder = (ViewHolder) rowView.getTag();
         AppInfo app = appList.get(position);
         holder.mAppName.setText(app.getName());
         holder.mCheckboxBlock.setChecked(app.isSelected());
         holder.mProfileImageView.setImageDrawable(app.getPhoto());
 
-        return convertView;
+        // Binding the current app to the checkbox
+        // ( need this for the click listener )
+        AppInfo currentApp = appList.get(position);
+        holder.mCheckboxBlock.setTag(currentApp);
 
+        return rowView;
+
+    }
+
+    public ArrayList<String> getSelected(){
+        ArrayList<String> filteredAppList = new ArrayList<>();
+        if(appList.size() > 0) {
+            for (AppInfo app : appList) {
+                if (app.isSelected()) {
+                    filteredAppList.add(app.getPackageName());
+                }
+            }
+        }
+        return filteredAppList;
     }
 
 }
