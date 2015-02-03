@@ -7,11 +7,19 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="application_title">Drunkmaster</string>
     <string name="lock">LOCK THE DEVICE</string>
-    <string name="slogan">Because one beer aint enough</string>
+    <string name="slogan">Because one beer ain\' enough</string>
     <string name="title_activity_apps">Applications</string>
     <string name="Apps_label">Choose Applications to be blocked</string>
     <string name="next_step">Next step</string>
     <string name="image"></string>
-    <string name="title_activity_time">TimeActivity</string>
+    <string name="title_activity_time">Choose block time</string>
+    <string name="time_label">Apps will be blocked for:</string>
+    <string name="title_activity_confirm">ConfirmActivity</string>
+    <string name="confirm_label">Ready for activation!</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="telephone_will_be_locked">Your phone will be LOCKED for:</string>
+    <string name="hours">hour/s</string>
+    <string name="unlocking_method">Diversed logic</string>
+    <string name="unlocking_method_label">Unlocking method:</string>
 
 </resources>

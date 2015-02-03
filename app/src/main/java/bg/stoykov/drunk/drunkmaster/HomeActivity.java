@@ -15,15 +15,22 @@ public class HomeActivity extends DrunkenMasterActionBarActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mLockButton = (Button)findViewById(R.id.btnHomeActivityLock);
-        mLockButton.setOnClickListener(this);
+        setListenerToLockButton();
 
     }
 
+    void setListenerToLockButton(){
+        mLockButton = (Button)findViewById(R.id.btnHomeActivityLock);
+        mLockButton.setOnClickListener(this);
+    }
+
+    void startAppsActivity(){
+        Intent in = new Intent(this, AppsActivity.class);
+        startActivity(in);
+    }
 
     @Override
     public void onClick(View v) {
-        Intent in = new Intent(this, AppsActivity.class);
-        startActivity(in);
+        startAppsActivity();
     }
 }

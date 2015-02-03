@@ -29,6 +29,10 @@
             android:name=".TimeActivity"
             android:label="@string/title_activity_time" >
         </activity>
+        <activity
+            android:name=".ConfirmActivity"
+            android:label="@string/title_activity_confirm" >
+        </activity>
     </application>
 
 </manifest>

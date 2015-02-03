@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="5"
+    tools:context="bg.stoykov.drunk.drunkmaster.ConfirmActivity">
+
+    <RelativeLayout
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="1.5"
+        style="@style/greyTopLabel"
+        android:id="@+id/rlAppsActivityTopLabel">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/imageView2"
+                android:src="@drawable/confirmed"
+                android:layout_marginBottom="10dp"
+                android:layout_above="@+id/tvAppsActivityTopLabelText"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView android:text="@string/confirm_label" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAppsActivityTopLabelText"
+                style="@style/greyTopLabelText"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/llConfirmActivityMiddleContainer"
+        android:background="@color/dark_grey"
+        android:padding="5dp"
+        android:layout_weight="2.8"
+        >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hours"
+                android:textSize="50sp"
+                android:id="@+id/tvConfirmActivityNHours"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Details:"
+                android:textSize="22sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/light_orange"
+                android:id="@+id/textsView"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:text="@string/telephone_will_be_locked"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/textsView"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/unlocking_method"
+            android:id="@+id/tvConfirmActivityUnlockingMethodValue"
+            android:textColor="@color/light_orange"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unlocking_method_label"
+            android:textColor="@color/white"
+            android:id="@+id/tvConfirmActivityUnlockingMethod"
+            android:layout_above="@+id/tvConfirmActivityUnlockingMethodValue"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.72"
+        style="@style/orangeButton"
+        android:text="@string/confirm_button"
+        android:id="@+id/btnConfirmActivityConfirm" />
+
+</LinearLayout>
