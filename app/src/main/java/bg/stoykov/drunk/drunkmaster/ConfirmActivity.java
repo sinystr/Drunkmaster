@@ -1,5 +1,6 @@
 package bg.stoykov.drunk.drunkmaster;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
@@ -50,5 +51,12 @@ public class ConfirmActivity extends DrunkenMasterActionBarActivity implements V
     public void onClick(View v) {
         Toast selectApps = Toast.makeText(ConfirmActivity.this, "Confirmed!!", Toast.LENGTH_SHORT);
         selectApps.show();
+        //Intent in = new Intent(this, BlockingService.class);
+        //startService(in);
+        //in = new Intent(this, HomeActivity.class);
+        //in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(in);
+
+        //finish();
     }
 }

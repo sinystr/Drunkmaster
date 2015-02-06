@@ -1,10 +1,8 @@
 package bg.stoykov.drunk.drunkmaster;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 
 public class HomeActivity extends DrunkenMasterActionBarActivity implements View.OnClickListener {
 
@@ -14,16 +12,12 @@ public class HomeActivity extends DrunkenMasterActionBarActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         setListenerToLockButton();
-
     }
-
     void setListenerToLockButton(){
         mLockButton = (Button)findViewById(R.id.btnHomeActivityLock);
         mLockButton.setOnClickListener(this);
     }
-
     void startAppsActivity(){
         Intent in = new Intent(this, AppsActivity.class);
         startActivity(in);

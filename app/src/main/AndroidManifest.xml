@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="bg.stoykov.drunk.drunkmaster" >
+    package="bg.stoykov.drunk.drunkmaster"
+    android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+     />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -17,11 +21,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/application_title"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".AppsActivity"
             android:label="@string/title_activity_apps" >
         </activity>
@@ -32,6 +31,32 @@
         <activity
             android:name=".ConfirmActivity"
             android:label="@string/title_activity_confirm" >
+        </activity>
+
+        <service
+            android:name=".BlockingService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+
+
+        <receiver
+            android:name=".Startup"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".AlertActivity"
+            android:label="@string/title_activity_alert" >
         </activity>
     </application>
 

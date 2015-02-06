@@ -19,15 +19,6 @@ public class TimeActivity extends DrunkenMasterActionBarActivity implements View
         setContentView(R.layout.activity_time);
 
         setupScreen();
-
-        /*SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-            Set<String> set = pref.getStringSet("apps", null);
-            for (Iterator<String> it = set.iterator(); it.hasNext(); ) {
-                String f = it.next();
-                Toast selectApps = Toast.makeText(TimeActivity.this, f, Toast.LENGTH_SHORT);
-                selectApps.show();
-            }
-         */
     }
 
     private void setHourFieldFilter(){

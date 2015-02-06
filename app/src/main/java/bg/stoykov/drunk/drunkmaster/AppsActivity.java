@@ -30,9 +30,7 @@ public class AppsActivity extends DrunkenMasterActionBarActivity implements View
         setContentView(R.layout.activity_apps);
 
         startThreadLoadApps();
-
         setListenerNextButton();
-
 
     }
 
@@ -97,29 +95,6 @@ public class AppsActivity extends DrunkenMasterActionBarActivity implements View
         successMessage.show();
     }
 
-    private ArrayList<AppInfo> getAllApps(){
-        ArrayList<AppInfo> appsInfoArray = new ArrayList<>();
-
-        // We ask for array of apps on the device
-        final PackageManager pm = getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-
-        for (ApplicationInfo packageInfo : packages) {
-            if(pm.getLaunchIntentForPackage(packageInfo.packageName)!= null &&
-                    !pm.getLaunchIntentForPackage(packageInfo.packageName).equals("")) {
-
-                try {
-                    appsInfoArray.add(new AppInfo(pm.getApplicationLabel(packageInfo).toString(),
-                            packageInfo.packageName, pm.getApplicationIcon(packageInfo.packageName)));
-
-                } catch (NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return appsInfoArray;
-    }
 
     @Override
     public void onClick(View v) {
@@ -127,6 +102,30 @@ public class AppsActivity extends DrunkenMasterActionBarActivity implements View
     }
 
     private class LoadDeviceApplications extends AsyncTask<Void, Void, ArrayList<AppInfo>>{
+
+        private ArrayList<AppInfo> getAllApps(){
+            ArrayList<AppInfo> appsInfoArray = new ArrayList<>();
+
+            // We ask for array of apps on the device
+            final PackageManager pm = getPackageManager();
+            List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+            for (ApplicationInfo packageInfo : packages) {
+                if(pm.getLaunchIntentForPackage(packageInfo.packageName)!= null &&
+                        !pm.getLaunchIntentForPackage(packageInfo.packageName).equals("")) {
+
+                    try {
+                        appsInfoArray.add(new AppInfo(pm.getApplicationLabel(packageInfo).toString(),
+                                packageInfo.packageName, pm.getApplicationIcon(packageInfo.packageName)));
+
+                    } catch (NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            return appsInfoArray;
+        }
 
         @Override
         protected ArrayList<AppInfo> doInBackground(Void... params) {

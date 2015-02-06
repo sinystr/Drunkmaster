@@ -21,5 +21,8 @@
     <string name="hours">hour/s</string>
     <string name="unlocking_method">Diversed logic</string>
     <string name="unlocking_method_label">Unlocking method:</string>
+    <string name="title_activity_hello">hello</string>
+    <string name="title_activity_fuck_you">FuckYou</string>
+    <string name="title_activity_alert">AlertActivity</string>
 
 </resources>

@@ -4,23 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import android.util.Log;
 
 public class SplashScreen extends Activity {
-
+    private HideSplashScreen task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-        HideSplashScreen hide = new HideSplashScreen();
-        hide.execute();
-
+        task = new HideSplashScreen();
+        task.execute();
     }
 
-    // We start new Thread that will redirect us to the Home Activity
+
 
     private class HideSplashScreen extends AsyncTask<Void, Void, Void>{
 
@@ -28,8 +26,8 @@ public class SplashScreen extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             // Thread will sleep for 5 seconds
-            try {
 
+            try {
                 Thread.sleep(3*1000);
 
                 // After 5 seconds redirect to another activity
@@ -42,8 +40,17 @@ public class SplashScreen extends Activity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
             return null;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("SPLASH", "onPause");
+        task.cancel(true);
     }
 
 }
