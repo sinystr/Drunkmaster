@@ -14,16 +14,30 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
 public class BlockingService extends Service {
 
+    private long mShutdownTime;
     private Handler handler = new Handler();
     private ActivityManager mActivityManager;
     private ArrayList<String> appList = new ArrayList<>();
 
     public BlockingService() {
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        initShutdownTime();
+        initActivityManager();
+        fillBlockedAppList();
+        // Start checking loop
+        handler.postDelayed(runnable, 0);
+        startForegroundService();
+
     }
     @Override
     public IBinder onBind(Intent intent) {
@@ -37,13 +51,28 @@ public class BlockingService extends Service {
             if(appList.contains(getCurrentActivityPackageName())){
                 exitBlockedApp();
             }
-
+            tryToShutdownService();
             handler.postDelayed(this, 500);
         }
     };
 
+    private void initShutdownTime(){
+        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
+        this.mShutdownTime = pref.getLong("shutdowntime", 0);
+        //Date date = new Date();
+        //this.mShutdownTime = date.getTime() + 1 * 60000;
+    }
 
-    void fillAppList(){
+    private void tryToShutdownService(){
+        Date date = new Date();
+        long currentTime = date.getTime();
+        if(currentTime > mShutdownTime){
+            stopSelf();
+            nullShutdownPrefTime();
+        }
+    }
+
+    private void fillBlockedAppList(){
         SharedPreferences pref = getSharedPreferences("Lock_info", 0);
         Set<String> set = pref.getStringSet("apps", null);
         for (Iterator<String> it = set.iterator(); it.hasNext(); ) {
@@ -57,35 +86,17 @@ public class BlockingService extends Service {
                 .getSystemService(Context.ACTIVITY_SERVICE);
     }
 
-    void startForegroundService(){
-        Notification notification = new Notification(R.drawable.ic_launcher, "Drunkmaster",
+    private void startForegroundService(){
+        Notification notification = new Notification(R.drawable.ic_launcher, "Drunkmaster activated!",
                 System.currentTimeMillis());
         Intent notificationIntent = new Intent(this, BlockingService.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        notification.setLatestEventInfo(this, "Service",
+        notification.setLatestEventInfo(this, "Drunkmaster",
                 "Activated!", pendingIntent);
         startForeground(101, notification);
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        initActivityManager();
-        fillAppList();
-        // Start checking
-        handler.postDelayed(runnable, 0);
-        startForegroundService();
-
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        //Date date = new Date(System.currentTimeMillis());
-        //Toast.makeText(this, "Time: " + date.getTime(), Toast.LENGTH_LONG).show();
-        return START_STICKY;
-    }
-
-    public String getCurrentActivityPackageName(){
+    private String getCurrentActivityPackageName(){
 
         String mPackageName;
 
@@ -116,5 +127,18 @@ public class BlockingService extends Service {
         toastBlockedApp();
     }
 
+    void nullShutdownPrefTime(){
+        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
+        SharedPreferences.Editor edit = pref.edit();
+        long shutdownTime = 0;
+        edit.putLong("shutdowntime", shutdownTime);
+        edit.apply();
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(getApplicationContext(), "Apps are now unlocked!!",
+                Toast.LENGTH_SHORT).show();
+    }
 }

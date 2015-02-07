@@ -56,8 +56,8 @@ public class AppAdapter extends ArrayAdapter<AppInfo> {
                 @Override
                 public void onClick(View v) {
                     CheckBox cb = (CheckBox) v ;
-                    AppInfo planet = (AppInfo) cb.getTag();
-                    planet.setSelected( cb.isChecked() );
+                    AppInfo app = (AppInfo) cb.getTag();
+                    app.setSelected( cb.isChecked() );
                 }
             });
 

@@ -49,14 +49,15 @@ public class ConfirmActivity extends DrunkenMasterActionBarActivity implements V
 
     @Override
     public void onClick(View v) {
-        Toast selectApps = Toast.makeText(ConfirmActivity.this, "Confirmed!!", Toast.LENGTH_SHORT);
-        selectApps.show();
-        //Intent in = new Intent(this, BlockingService.class);
-        //startService(in);
-        //in = new Intent(this, HomeActivity.class);
-        //in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //startActivity(in);
 
-        //finish();
+        Intent in = new Intent(this, BlockingService.class);
+        startService(in);
+        Toast.makeText(getApplicationContext(), "Drunkmaster activated!!",
+                Toast.LENGTH_SHORT).show();
+        in = new Intent(this, UnlockActivity.class);
+        in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(in);
+
+        finish();
     }
 }

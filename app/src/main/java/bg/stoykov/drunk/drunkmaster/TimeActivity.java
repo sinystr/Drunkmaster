@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Date;
+
 
 public class TimeActivity extends DrunkenMasterActionBarActivity implements View.OnClickListener {
 
@@ -54,6 +56,9 @@ public class TimeActivity extends DrunkenMasterActionBarActivity implements View
     private void saveHourValue(int hours){
         SharedPreferences pref = getSharedPreferences("Lock_info", 0);
         SharedPreferences.Editor edit = pref.edit();
+        Date date = new Date();
+        long shutdownTime = date.getTime() + (hours * 3600000);
+        edit.putLong("shutdowntime", shutdownTime);
         edit.putInt("hours", hours);
         edit.apply();
 
