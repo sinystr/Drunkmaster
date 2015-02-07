@@ -61,6 +61,10 @@
             android:name=".UnlockActivity"
             android:label="@string/title_activity_unlock" >
         </activity>
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/title_activity_question" >
+        </activity>
     </application>
 
 </manifest>

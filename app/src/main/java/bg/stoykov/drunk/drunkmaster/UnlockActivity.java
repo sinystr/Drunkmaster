@@ -24,24 +24,11 @@ public class UnlockActivity extends DrunkenMasterActionBarActivity implements Vi
         unlockButton.setOnClickListener(this);
     }
 
-    void nullShutdownPrefTime(){
-        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-        SharedPreferences.Editor edit = pref.edit();
-        long shutdownTime = 0;
-        edit.putLong("shutdowntime", shutdownTime);
-        edit.apply();
-    }
 
     @Override
     public void onClick(View v) {
-        nullShutdownPrefTime();
-        Intent in = new Intent(this, BlockingService.class);
-        stopService(in);
-        in = new Intent(this, HomeActivity.class);
-        in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent in = new Intent(this, QuestionActivity.class);
         startActivity(in);
-
-        finish();
     }
 
     @Override
