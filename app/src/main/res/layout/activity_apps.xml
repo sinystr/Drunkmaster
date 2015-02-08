@@ -26,7 +26,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/lvApps"
+        android:id="@+id/lvAppsActivityApps"
         android:layout_gravity="center_horizontal"
         android:background="@color/dark_grey"
         android:padding="5dp"
@@ -38,6 +38,6 @@
         android:layout_weight="0.72"
         style="@style/orangeButton"
         android:text="@string/next_step"
-        android:id="@+id/btnAppsActivity" />
+        android:id="@+id/btnAppsActivityNextStep" />
 
 </LinearLayout>

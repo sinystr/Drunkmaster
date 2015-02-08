@@ -26,10 +26,11 @@
             android:layout_height="wrap_content"
             android:src="@drawable/splash_smile"
             android:id="@+id/imageView4"
+            android:layout_marginLeft="36dp"
             android:layout_above="@+id/imageView3"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginStart="36dp" />
     </RelativeLayout>
 
 
@@ -51,8 +52,6 @@
             android:id="@+id/tvHomeActivitySlogan"
             style="@style/orangeText"
             android:textColor="@color/white"
-            android:layout_above="@+id/btnHomeActivityLock"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp" />
 

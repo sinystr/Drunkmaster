@@ -1,13 +1,10 @@
 package bg.stoykov.drunk.drunkmaster;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -39,28 +36,23 @@ public class AppsActivity extends DrunkenMasterActionBarActivity implements View
     }
 
     private void setListenerNextButton(){
-        Button nextStep = (Button) findViewById(R.id.btnAppsActivity);
+        Button nextStep = (Button) findViewById(R.id.btnAppsActivityNextStep);
         nextStep.setOnClickListener(this);
     }
 
     private void fillListView(ArrayList<AppInfo> appInfos){
         adapter = new AppAdapter(AppsActivity.this, R.layout.app_item ,appInfos);
-        ListView mListView = (ListView) findViewById(R.id.lvApps);
+        ListView mListView = (ListView) findViewById(R.id.lvAppsActivityApps);
         mListView.setAdapter(adapter);
     }
 
     private void showNoSelectedAppAlertToast(){
-        Toast selectApps = Toast.makeText(AppsActivity.this, "Please select atleast 1 app!!", Toast.LENGTH_SHORT);
-        selectApps.show();
+        Toast.makeText(AppsActivity.this, getString(R.string.select_atleast_one_app), Toast.LENGTH_SHORT).show();
     }
 
     private void saveAppsOnSharedPreferences(ArrayList<String> apps){
-        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-        SharedPreferences.Editor edit = pref.edit();
-        Set<String> set = new HashSet<>();
-        set.addAll(apps);
-        edit.putStringSet("apps", set);
-        edit.apply();
+        PreferencesController controller = new PreferencesController(this);
+        controller.saveApps(apps);
     }
 
     private void startTimeActivity(){
@@ -83,7 +75,7 @@ public class AppsActivity extends DrunkenMasterActionBarActivity implements View
 
     private void showLoadingAppsDialog(){
         dialog = ProgressDialog.show(AppsActivity.this, "",
-                "Loading Apps. Please wait...", true);
+                getString(R.string.loading_apps), true);
     }
 
     private void hideLoadingAppsDialog(){
@@ -91,8 +83,7 @@ public class AppsActivity extends DrunkenMasterActionBarActivity implements View
     }
 
     private void showSuccessToast(){
-        Toast successMessage = Toast.makeText(AppsActivity.this, "All Applications loaded!", Toast.LENGTH_SHORT);
-        successMessage.show();
+        Toast.makeText(AppsActivity.this, getString(R.string.all_apps_loaded), Toast.LENGTH_SHORT).show();
     }
 
 

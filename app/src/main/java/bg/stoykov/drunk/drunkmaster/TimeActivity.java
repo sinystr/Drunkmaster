@@ -7,6 +7,7 @@ import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -21,17 +22,20 @@ public class TimeActivity extends DrunkenMasterActionBarActivity implements View
         setContentView(R.layout.activity_time);
 
         setupScreen();
+
     }
 
     private void setHourFieldFilter(){
         mTimeField = (EditText) findViewById(R.id.etTimeActivityHours);
-        mTimeField.setFilters(new InputFilter[]{new InputFilterMinMax("1", "12")});
+        mTimeField.setFilters(new InputFilter[]{new InputFilterMinMax("1", "24")});
+
     }
 
     private void setupNextStepButton(){
         Button nextStepBtn;
         nextStepBtn = (Button)findViewById(R.id.btnTimeActivityNextStep);
         nextStepBtn.setOnClickListener(this);
+
     }
 
 
@@ -54,24 +58,33 @@ public class TimeActivity extends DrunkenMasterActionBarActivity implements View
     }
 
     private void saveHourValue(int hours){
-        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-        SharedPreferences.Editor edit = pref.edit();
-        Date date = new Date();
-        long shutdownTime = date.getTime() + (hours * 3600000);
-        edit.putLong("shutdowntime", shutdownTime);
-        edit.putInt("hours", hours);
-        edit.apply();
+        PreferencesController controller = new PreferencesController(this);
+        controller.saveHourValue(hours);
 
     }
 
     private void redirectToConfirmActivity(){
         Intent in = new Intent(this, ConfirmActivity.class);
         startActivity(in);
+
+    }
+
+    private boolean hourValueNotEmpty(){
+        return getTimeValue() > 0;
+
     }
 
     @Override
     public void onClick(View v) {
-        saveHourValue(getTimeValue());
-        redirectToConfirmActivity();
+        if(hourValueNotEmpty()) {
+            saveHourValue(getTimeValue());
+            redirectToConfirmActivity();
+        }else{
+            showToastEnterHourValue();
+        }
+    }
+
+    private void showToastEnterHourValue() {
+        Toast.makeText(this, getString(R.string.enter_hours), Toast.LENGTH_LONG).show();
     }
 }

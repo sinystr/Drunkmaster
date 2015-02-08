@@ -41,21 +41,18 @@ public class QuestionActivity extends ActionBarActivity implements View.OnClickL
 
 
     void nullShutdownPrefTime(){
-        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-        SharedPreferences.Editor edit = pref.edit();
-        long shutdownTime = 0;
-        edit.putLong("shutdowntime", shutdownTime);
-        edit.apply();
+        PreferencesController controller = new PreferencesController(this);
+        controller.nullShutdownPrefTime();
     }
 
     private void unlock(){
-        nullShutdownPrefTime();
         Intent in = new Intent(this, BlockingService.class);
         stopService(in);
+        nullShutdownPrefTime();
         in = new Intent(this, HomeActivity.class);
         in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(in);
-        Toast.makeText(getApplicationContext(), "Correct! Apps unlocked!",
+        Toast.makeText(getApplicationContext(), getString(R.string.correct_answer),
                 Toast.LENGTH_SHORT).show();
 
         finish();
@@ -63,10 +60,10 @@ public class QuestionActivity extends ActionBarActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(getAnswer().equals("uncle") || getAnswer().equals("Uncle")){
+        if(getAnswer().equals("brother") || getAnswer().equals("Brother")){
             unlock();
         }else{
-            Toast.makeText(getApplicationContext(), "Wrong answer! Please try again!",
+            Toast.makeText(getApplicationContext(), getString(R.string.wrong_answer),
                     Toast.LENGTH_SHORT).show();
 
         }

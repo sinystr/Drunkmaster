@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/vomit"
-            android:id="@+id/ivHomeActivityStickmanVommiting"
+            android:id="@+id/ivHomeActivityManVomiting"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
@@ -42,8 +42,6 @@
             android:id="@+id/tvHomeActivitySlogan"
             style="@style/orangeText"
             android:textColor="@color/white"
-            android:layout_above="@+id/btnHomeActivityLock"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp" />
 
@@ -53,11 +51,6 @@
             android:text="@string/lock"
             style="@style/orangeButtonRounded"
             android:id="@+id/btnHomeActivityLock"
-            android:layout_alignLeft="@+id/linearLayout"
-            android:layout_alignStart="@+id/linearLayout"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/ivHomeActivityStickmanVommiting"
-            android:layout_alignEnd="@+id/ivHomeActivityStickmanVommiting"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="0dp" />

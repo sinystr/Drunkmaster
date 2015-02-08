@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="My wife&apos;s brother is what to my daugther mother:"
+            android:text="My wife&apos;s brother is what to my daugther&apos;s mother:"
             android:id="@+id/textView4"
             android:background="@color/light_orange"
             android:textColor="@color/white"
@@ -49,7 +49,7 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:paddingLeft="10dp"
-                android:textColor="@color/light_orange"
+                android:textColor="@color/light_grey"
                 android:paddingRight="10dp" />
 
             </RelativeLayout>

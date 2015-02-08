@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -16,14 +15,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
 
 public class BlockingService extends Service {
 
     private long mShutdownTime;
     private Handler handler = new Handler();
     private ActivityManager mActivityManager;
-    private ArrayList<String> appList = new ArrayList<>();
+    private ArrayList<String> mAppList = new ArrayList<>();
 
     public BlockingService() {
     }
@@ -34,9 +32,10 @@ public class BlockingService extends Service {
         initShutdownTime();
         initActivityManager();
         fillBlockedAppList();
+
         // Start checking loop
         handler.postDelayed(runnable, 0);
-        startForegroundService();
+        startServiceAsForegroundService();
 
     }
     @Override
@@ -48,7 +47,7 @@ public class BlockingService extends Service {
 
         @Override
         public void run() {
-            if(appList.contains(getCurrentActivityPackageName())){
+            if(mAppList.contains(getCurrentActivityPackageName())){
                 exitBlockedApp();
             }
             tryToShutdownService();
@@ -57,8 +56,8 @@ public class BlockingService extends Service {
     };
 
     private void initShutdownTime(){
-        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-        this.mShutdownTime = pref.getLong("shutdowntime", 0);
+        PreferencesController controller = new PreferencesController(this);
+        this.mShutdownTime = controller.getShutdownTime();
         //Date date = new Date();
         //this.mShutdownTime = date.getTime() + 1 * 60000;
     }
@@ -73,11 +72,9 @@ public class BlockingService extends Service {
     }
 
     private void fillBlockedAppList(){
-        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-        Set<String> set = pref.getStringSet("apps", null);
-        for (Iterator<String> it = set.iterator(); it.hasNext(); ) {
-            String f = it.next();
-            appList.add(f);
+        PreferencesController controller = new PreferencesController(this);
+        for (String app : controller.getApps()) {
+            mAppList.add(app);
         }
     }
 
@@ -86,8 +83,9 @@ public class BlockingService extends Service {
                 .getSystemService(Context.ACTIVITY_SERVICE);
     }
 
-    private void startForegroundService(){
-        Notification notification = new Notification(R.drawable.ic_launcher, "Drunkmaster activated!",
+    private void startServiceAsForegroundService(){
+        Notification notification = new Notification(R.drawable.ic_launcher,
+                getString(R.string.drunkmaster_activated),
                 System.currentTimeMillis());
         Intent notificationIntent = new Intent(this, BlockingService.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -98,20 +96,20 @@ public class BlockingService extends Service {
 
     private String getCurrentActivityPackageName(){
 
-        String mPackageName;
+        String packageName;
 
         if(Build.VERSION.SDK_INT > 20){
-            mPackageName = mActivityManager.getRunningAppProcesses().get(0).processName;
+            packageName = mActivityManager.getRunningAppProcesses().get(0).processName;
         }
         else{
-            mPackageName = mActivityManager.getRunningTasks(1).get(0).baseActivity.getPackageName();
+            packageName = mActivityManager.getRunningTasks(1).get(0).baseActivity.getPackageName();
         }
 
-        return mPackageName;
+        return packageName;
     }
 
     private void toastBlockedApp(){
-        Toast.makeText(getApplicationContext(), "This app is locked!",
+        Toast.makeText(getApplicationContext(), getString(R.string.app_locked),
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -128,17 +126,15 @@ public class BlockingService extends Service {
     }
 
     void nullShutdownPrefTime(){
-        SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-        SharedPreferences.Editor edit = pref.edit();
-        long shutdownTime = 0;
-        edit.putLong("shutdowntime", shutdownTime);
-        edit.apply();
+        PreferencesController controller = new PreferencesController(this);
+        controller.nullShutdownPrefTime();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(getApplicationContext(), "Apps are now unlocked!!",
+        handler.removeCallbacks(runnable);
+        Toast.makeText(getApplicationContext(), getString(R.string.apps_unlocked),
                 Toast.LENGTH_SHORT).show();
     }
 }

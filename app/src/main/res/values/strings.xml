@@ -18,7 +18,7 @@
     <string name="confirm_button">Confirm</string>
     <string name="telephone_will_be_locked">Your phone will be LOCKED for:</string>
     <string name="hours">hour/s</string>
-    <string name="unlocking_method">Diversed logic</string>
+    <string name="unlocking_method">Diverse logic</string>
     <string name="unlocking_method_label">Unlocking method:</string>
     <string name="title_activity_hello">hello</string>
     <string name="title_activity_fuck_you">FuckYou</string>
@@ -28,5 +28,15 @@
     <string name="unlock">UNLOCK THE DEVICE</string>
     <string name="title_activity_question">Question</string>
     <string name="answer">Answer</string>
+    <string name="select_atleast_one_app">Please select atleast 1 app!</string>
+    <string name="loading_apps">Loading Apps. Please wait…</string>
+    <string name="all_apps_loaded">All Applications loaded!</string>
+    <string name="enter_hours">Please enter valid hour number</string>
+    <string name="lock_activated">Drunkmaster activated!</string>
+    <string name="apps_unlocked">Apps are now unlocked!</string>
+    <string name="app_locked">This app is locked!</string>
+    <string name="drunkmaster_activated">Drunkmaster activated!</string>
+    <string name="wrong_answer">Wrong answer! Please try again!</string>
+    <string name="correct_answer">Correct! Apps unlocked!</string>
 
 </resources>

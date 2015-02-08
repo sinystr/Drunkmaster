@@ -1,7 +1,6 @@
 package bg.stoykov.drunk.drunkmaster;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -22,9 +21,8 @@ public class ConfirmActivity extends DrunkenMasterActionBarActivity implements V
     }
 
     protected int getHours(){
-         SharedPreferences pref = getSharedPreferences("Lock_info", 0);
-         return pref.getInt("hours", 0);
-
+        PreferencesController controller = new PreferencesController(this);
+        return controller.getHours();
 
     }
 
@@ -49,15 +47,15 @@ public class ConfirmActivity extends DrunkenMasterActionBarActivity implements V
 
     @Override
     public void onClick(View v) {
-
         Intent in = new Intent(this, BlockingService.class);
         startService(in);
-        Toast.makeText(getApplicationContext(), "Drunkmaster activated!!",
+        Toast.makeText(getApplicationContext(), getString(R.string.lock_activated),
                 Toast.LENGTH_SHORT).show();
         in = new Intent(this, UnlockActivity.class);
         in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(in);
 
         finish();
+
     }
 }
